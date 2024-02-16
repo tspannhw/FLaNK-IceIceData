@@ -24,6 +24,9 @@ localstack status services
 
 https://pypi.org/project/hive-metastore-client/
 
+pip3 install hive-metastore-client
+
+
 ### REFERENCE
 
 https://dev.to/navedrizv/setup-aws-s3-bucket-locally-with-localstack-3n4o
