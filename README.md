@@ -25,3 +25,5 @@ localstack status services
 
 https://dev.to/navedrizv/setup-aws-s3-bucket-locally-with-localstack-3n4o
 
+https://iceberg.apache.org/hive-quickstart/
+
