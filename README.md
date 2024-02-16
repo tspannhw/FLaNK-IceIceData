@@ -20,8 +20,11 @@ aws s3 ls --endpoint-url=http://192.168.1.166:4566 --recursive --human-readable
 localstack status services
 ````
 
+### Libraries
 
-## REFERENCE
+https://pypi.org/project/hive-metastore-client/
+
+### REFERENCE
 
 https://dev.to/navedrizv/setup-aws-s3-bucket-locally-with-localstack-3n4o
 
