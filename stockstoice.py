@@ -25,9 +25,10 @@ import subprocess
 import os
 import traceback
 import math
+import base64
+import json
 from time import gmtime, strftime
 import random, string
-import time
 import psutil
 import uuid
 import requests
@@ -44,26 +45,17 @@ import json
 from time import sleep
 from math import isnan
 import datetime
-import subprocess
 import sys
 import os
-from subprocess import PIPE, Popen
-import traceback
-import base64
-from time import gmtime, strftime
-import random, string
-import base64
-import uuid
-import json
 
-StockNames = ["ORCL", "SAP", "CSCO","GOOG","ETH-USD", "NVDA", "AMZN",  "IBM", "NFLX"]
-n = 1
+StockNames = ["ORCL", "SAP", "CSCO","GOOG","ETH-USD", "NVDA", "AMZN",  "IBM", "NFLX", "MARA", "TSLA", "PLTR", "NCLH", "RIVN", "AMD", "PFE", "BAC", "GOOGL"]
+
 producer = KafkaProducer(key_serializer=str.encode, value_serializer=lambda v: json.dumps(v).encode('ascii'),bootstrap_servers='kafka:9092',retries=3)
 
 tablename = "yfinstocks"
 schemaname = "docs_example" 
 s3location = "s3://pyiceberg"
-local_data_dir = "/tmp/stocks/"
+local_data_dir = "/Users/tspann/Downloads/servers/stocks/"
 
 from pyiceberg.catalog.sql import SqlCatalog
 warehouse_path = "/tmp/warehouse"
@@ -74,8 +66,8 @@ catalog = SqlCatalog(
         "warehouse": "http://localhost:9000",
         "s3.endpoint": "http://localhost:9000",
         "py-io-impl": "pyiceberg.io.pyarrow.PyArrowFileIO",
-        "s3.access-key-id": "s3miniokey",
-        "s3.secret-access-key": "s3miniosecretkey",
+        "s3.access-key-id": "key",
+        "s3.secret-access-key": "value",
     },
 )
 
@@ -93,11 +85,11 @@ while rowCounter >= 0:
     except:
         print("Bad stockname " + stockname)
 
-    print(stockname)
+    print(str(rowCounter) + " " + stockname)
     isList.append(row)
     rowCounter = rowCounter + 1
 
-    if ( rowCounter >= 500):
+    if ( rowCounter >= 1000):
         rowCounter = 0
         
         ## build PyArrow table from python list
@@ -120,6 +112,7 @@ while rowCounter >= 0:
         isList = []
         df = None 
 
-    time.sleep(1)
-        
+    time.sleep(0.05)
+
 producer.close()
+# https://py.iceberg.apache.org/api/
